@@ -95,10 +95,18 @@ def buildSchedule():
         array=key.split('.')
         if len(array) == 4:
             parm=config['Time.interval'][key]
-            schedule.every().day.at('09:30').do(startMonitor,parm,array[0],array[1],array[2],array[3]).tag('ak-tasks')
-            schedule.every().day.at('11:30').do(cancelMonitor,array[0]).tag('ak-tasks')
-            schedule.every().day.at('13:00').do(startMonitor,parm,array[0],array[1],array[2],array[3]).tag('ak-tasks')
-            schedule.every().day.at('15:00').do(cancelMonitor,array[0]).tag('ak-tasks')
+            if 'stock_' in array[0]:
+                schedule.every().day.at('09:30').do(startMonitor,parm,array[0],array[1],array[2],array[3]).tag('ak-tasks')
+                schedule.every().day.at('11:30').do(cancelMonitor,array[0]).tag('ak-tasks')
+                schedule.every().day.at('13:00').do(startMonitor,parm,array[0],array[1],array[2],array[3]).tag('ak-tasks')
+                schedule.every().day.at('15:00').do(cancelMonitor,array[0]).tag('ak-tasks')
+            else:
+                if array[3] == 'minutes':
+                    schedule.every(parm).minutes.do(array[0],array[1],array[2],array[3]).tag('ak-tasks')
+                if array[3] == 'hours':
+                    schedule.every(parm).hours.do(array[0],array[1],array[2],array[3]).tag('ak-tasks')
+                if array[3] == 'seconds':
+                    schedule.every(parm).seconds.do(array[0],array[1],array[2],array[3]).tag('ak-tasks')
         else:
             print('Error:config'+key)
             
