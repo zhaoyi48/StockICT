@@ -32,4 +32,4 @@ jobs:
       with:
           context: .
           push: true
-          tags: realforcez/StockICT:latest
+          tags: realforcez/stockict:latest
