@@ -10,7 +10,7 @@ Create database
 docker run -d \
 --name StockICT \
 --read-only  -v /config/config.ini:/config/config.ini \
-realforcez/StockICT
+realforcez/stockict
 ```
 
 ## Config File Example
